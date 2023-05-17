@@ -1,16 +1,16 @@
-# LinkHub - Web Application Readme
+# LinkCrate - Web Application
 
 ## Description
 
-LinkHub is a web application built with React that allows users to collect and organize their various links in one central location. It provides a simple and intuitive way for individuals and businesses to create a personalized page with their preferred links, making it easy to share with others.
+LinkCrate is a web application built with React that allows users to collect and organize their various links in one central location. It provides a simple and intuitive way for individuals and businesses to create a personalized page with their preferred links, making it easy to share with others.
 
 ## Features
 
--   **Link Collection**: Users can add and manage an unlimited number of links to their LinkHub page.
--   **Customization**: Users can customize the appearance of their LinkHub page by choosing from a variety of themes and templates.
--   **Social Media Integration**: LinkHub enables users to add links to their social media profiles, including Facebook, Twitter, Instagram, LinkedIn, and more.
+-   **Link Collection**: Users can add and manage an unlimited number of links to their LinkCrate page.
+-   **Customization**: Users can customize the appearance of their LinkCrate page by choosing from a variety of themes and templates.
+-   **Social Media Integration**: LinkCrate enables users to add links to their social media profiles, including Facebook, Twitter, Instagram, LinkedIn, and more.
 -   **Analytics**: Users can view basic analytics to track the performance and engagement of their shared links.
--   **Sharing Options**: LinkHub provides users with multiple sharing options, including sharing their LinkHub page URL directly or embedding it on their website or blog.
+-   **Sharing Options**: LinkCrate provides users with multiple sharing options, including sharing their LinkCrate page URL directly or embedding it on their website or blog.
 -   **Responsive Design**: The web application is fully responsive, ensuring an optimal viewing experience across different devices and screen sizes.
 
 ## Technologies Used
@@ -25,13 +25,13 @@ LinkHub is a web application built with React that allows users to collect and o
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/tier3guy/linkhub.git
+    git clone https://github.com/tier3guy/linkcrate.git
     ```
 
 2. Navigate to the project directory:
 
     ```
-    cd linkhub
+    cd linkcrate
     ```
 
 3. Install the dependencies:
@@ -60,17 +60,17 @@ LinkHub is a web application built with React that allows users to collect and o
 
 ## Deployment
 
-LinkHub can be deployed to Vercel or any other hosting platform that supports React applications. Follow the deployment instructions specific to Vercel or your chosen hosting platform.
+LinkCrate can be deployed to Vercel or any other hosting platform that supports React applications. Follow the deployment instructions specific to Vercel or your chosen hosting platform.
 
 Ensure that you set the Firebase configuration variables as environment variables in your deployment environment.
 
 ## Usage
 
-1. Open your web browser and navigate to the deployed URL of your LinkHub application.
+1. Open your web browser and navigate to the deployed URL of your LinkCrate application.
 2. Sign up for a new account or log in if you already have one.
-3. Once logged in, you will be redirected to your LinkHub dashboard.
-4. Customize your LinkHub page by adding links and selecting a theme/template.
-5. Share your LinkHub page URL with others or embed it on your website/blog.
+3. Once logged in, you will be redirected to your LinkCrate dashboard.
+4. Customize your LinkCrate page by adding links and selecting a theme/template.
+5. Share your LinkCrate page URL with others or embed it on your website/blog.
 
 ## Contributing
 
