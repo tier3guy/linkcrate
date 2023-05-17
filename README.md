@@ -23,34 +23,40 @@ LinkHub is a web application built with React that allows users to collect and o
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/tier3guy/linkhub.git
-   ```
-2. Navigate to the project directory:
-   ```
-   cd linkhub
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-4. Create a Firebase project and set up Firestore for the database. Obtain the necessary Firebase configuration details.
 
+      ```bash
+      git clone https://github.com/tier3guy/linkhub.git
+      ```
+
+2. Navigate to the project directory:
+
+      ```
+      cd linkhub
+      ```
+
+3. Install the dependencies:
+
+      ```
+      npm install
+      ```
+
+4. Create a Firebase project and set up Firestore for the database. Obtain the necessary Firebase configuration details.
 5. Create a `.env` file in the root directory and provide the Firebase configuration variables:
 
-   ```
-   REACT_APP_FIREBASE_API_KEY=your-api-key
-   REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-   REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-   REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-   REACT_APP_FIREBASE_APP_ID=your-app-id
-   ```
+      ```
+      REACT_APP_FIREBASE_API_KEY=your-api-key
+      REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+      REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+      REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+      REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+      REACT_APP_FIREBASE_APP_ID=your-app-id
+      ```
 
 6. Start the application:
-   ```
-   npm start
-   ```
+
+      ```
+      npm start
+      ```
 
 ## Deployment
 
@@ -76,4 +82,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions, feel free to reach out to the project maintainer at [your-email@example.com](mailto:your-email@example.com).
+If you have any questions, feel free to reach out to the project maintainer at [avinashgupta.works@gmail.com](mailto:avinashgupta.works@gmail.com).
