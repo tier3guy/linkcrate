@@ -62,7 +62,7 @@ const Navbar = () => {
                 <p className="text-slate-900 font-medium cursor-pointer">
                     Login
                 </p>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-3xl">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-3xl">
                     <p className="text-base text-white font-medium">
                         Sign Up Free
                     </p>

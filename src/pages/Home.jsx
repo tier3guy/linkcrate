@@ -10,7 +10,11 @@ const Home = () => {
                         Just one click and its done,
                     </p>
                     <h1 className="md:w-2/3 md:leading-[75px] my-3 text-6xl font-bold text-slate-800">
-                        One single Amazing Link for everything
+                        One single{" "}
+                        <span className="border-b-4 border-yellow-500">
+                            Amazing Link
+                        </span>{" "}
+                        for everything
                     </h1>
                     <p className="mt-5 text-gray-500 w-2/3">
                         Linkcrate, web app that helps users collect and organize
@@ -29,7 +33,7 @@ const Home = () => {
                             type="text"
                             className="w-full h-full outline-none"
                         />
-                        <button className="bg-blue-500 text-white rounded-[6rem] px-5 py-2 absolute right-1 h-[90%]">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-2 absolute right-1 h-[90%]">
                             Clame your Linkcrate
                         </button>
                     </div>
