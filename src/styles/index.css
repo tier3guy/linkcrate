@@ -2,37 +2,37 @@
 @import url("./partials/__partials.css");
 
 /* Importing Components CSS */
-@import url("./components/Home.css");
-@import url("./components/Error.css");
+@import url("./pages/Error.css");
+@import url("./pages/Home.css");
 
 /* Overriding Global CSS */
 
 * {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-  font-family: var(--font-poppins);
-  color: black;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: var(--font-poppins);
+    color: black;
 }
 
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 button {
-  outline: none;
-  border: none;
-  cursor: none;
+    outline: none;
+    border: none;
+    cursor: none;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 /* Custom Classes */
 
 .center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

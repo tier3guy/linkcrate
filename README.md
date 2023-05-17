@@ -6,57 +6,57 @@ LinkHub is a web application built with React that allows users to collect and o
 
 ## Features
 
-- **Link Collection**: Users can add and manage an unlimited number of links to their LinkHub page.
-- **Customization**: Users can customize the appearance of their LinkHub page by choosing from a variety of themes and templates.
-- **Social Media Integration**: LinkHub enables users to add links to their social media profiles, including Facebook, Twitter, Instagram, LinkedIn, and more.
-- **Analytics**: Users can view basic analytics to track the performance and engagement of their shared links.
-- **Sharing Options**: LinkHub provides users with multiple sharing options, including sharing their LinkHub page URL directly or embedding it on their website or blog.
-- **Responsive Design**: The web application is fully responsive, ensuring an optimal viewing experience across different devices and screen sizes.
+-   **Link Collection**: Users can add and manage an unlimited number of links to their LinkHub page.
+-   **Customization**: Users can customize the appearance of their LinkHub page by choosing from a variety of themes and templates.
+-   **Social Media Integration**: LinkHub enables users to add links to their social media profiles, including Facebook, Twitter, Instagram, LinkedIn, and more.
+-   **Analytics**: Users can view basic analytics to track the performance and engagement of their shared links.
+-   **Sharing Options**: LinkHub provides users with multiple sharing options, including sharing their LinkHub page URL directly or embedding it on their website or blog.
+-   **Responsive Design**: The web application is fully responsive, ensuring an optimal viewing experience across different devices and screen sizes.
 
 ## Technologies Used
 
-- **Frontend**: React
-- **Backend**: Firebase (Firestore for the database)
-- **Authentication**: Firebase Authentication
-- **Deployment**: Vercel
+-   **Frontend**: React
+-   **Backend**: Firebase (Firestore for the database)
+-   **Authentication**: Firebase Authentication
+-   **Deployment**: Vercel
 
 ## Installation
 
 1. Clone the repository:
 
-      ```bash
-      git clone https://github.com/tier3guy/linkhub.git
-      ```
+    ```bash
+    git clone https://github.com/tier3guy/linkhub.git
+    ```
 
 2. Navigate to the project directory:
 
-      ```
-      cd linkhub
-      ```
+    ```
+    cd linkhub
+    ```
 
 3. Install the dependencies:
 
-      ```
-      npm install
-      ```
+    ```
+    npm install
+    ```
 
 4. Create a Firebase project and set up Firestore for the database. Obtain the necessary Firebase configuration details.
 5. Create a `.env` file in the root directory and provide the Firebase configuration variables:
 
-      ```
-      REACT_APP_FIREBASE_API_KEY=your-api-key
-      REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-      REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-      REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-      REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-      REACT_APP_FIREBASE_APP_ID=your-app-id
-      ```
+    ```
+    REACT_APP_FIREBASE_API_KEY=your-api-key
+    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+    REACT_APP_FIREBASE_APP_ID=your-app-id
+    ```
 
 6. Start the application:
 
-      ```
-      npm start
-      ```
+    ```
+    npm start
+    ```
 
 ## Deployment
 
