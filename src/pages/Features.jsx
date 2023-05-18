@@ -1,7 +1,7 @@
 const Features = () => {
     return (
         <div className=" w-[90%] m-auto">
-            <div className="bg-white rounded-3xl p-20 text-center">
+            <div className="bg-white rounded-3xl p-20 text-center shadow-sm">
                 <div className="md:h-full flex flex-col justify-center">
                     <p className="text-xl text-sky-800">Made it Easy</p>
                     <h1 className="md:leading-[75px] my-3 text-6xl font-bold text-slate-800">
