@@ -5,7 +5,11 @@ module.exports = {
         fontFamily: {
             sans: ["Instrument Sans", "sans-serif"]
         },
-        extend: {}
+        extend: {
+            zIndex: {
+                100: "100"
+            }
+        }
     },
     plugins: []
 };

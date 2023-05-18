@@ -39,7 +39,7 @@ const links = [
 
 const Navbar = () => {
     return (
-        <nav className="p-4 px-16 bg-white fixed top-0 w-screen border-y flex items-center justify-between">
+        <nav className="z-[100] p-4 px-16 bg-white fixed top-0 w-screen border-y flex items-center justify-between">
             <div className="flex space-x-10 items-center">
                 <Logo />
                 <div className="flex space-x-4 items-center">

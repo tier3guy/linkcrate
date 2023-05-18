@@ -1,7 +1,15 @@
 // Pages
 import Features from "./Features";
 
+// Components
+import { Footer } from "../components";
+
+// Internal Imports
+import { useState } from "react";
+
 const Home = () => {
+    const [username, setUsername] = useState("");
+
     return (
         <>
             <div className="h-screen pt-20 px-16">
@@ -32,6 +40,8 @@ const Home = () => {
                             placeholder="your name"
                             type="text"
                             className="w-full h-full outline-none"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-2 absolute right-1 h-[90%]">
                             Clame your Linkcrate
@@ -40,6 +50,7 @@ const Home = () => {
                 </div>
             </div>
             <Features />
+            <Footer />
         </>
     );
 };
