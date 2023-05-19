@@ -80,7 +80,7 @@ const Modals = ({ visible, setVisibility }) => {
     return (
         <ModalsWrapper visible={visible}>
             <div
-                className={`min-w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                className={`border-1 min-w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
                     visible
                         ? "scale-100 animate-zoomIn"
                         : "scale-0 animate-zoomOut"
