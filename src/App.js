@@ -20,7 +20,7 @@ const App = () => {
                 setVisibility={setLoginModalVisibilty}
             />
             <Routes>
-                {routes.map((route, index) => (
+                {routes.map((route) => (
                     <Route {...route} />
                 ))}
             </Routes>

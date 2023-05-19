@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Internal Imports
 import { useState, useEffect, createContext, useContext } from "react";
 
@@ -12,6 +13,7 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userPhotoURL, setUserPhotoURL] = useState(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
@@ -25,16 +27,12 @@ export const AuthContextProvider = ({ children }) => {
     useEffect(() => {
         setLoading(true);
         const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (!user) return;
             setUser(user);
-            setLoading(false);
         });
         setLoading(false);
         return unsubscribe;
     }, []);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
 
     return (
         <AuthContext.Provider
@@ -54,7 +52,9 @@ export const AuthContextProvider = ({ children }) => {
                 lname,
                 setLname,
                 loginModalVisibilty,
-                setLoginModalVisibilty
+                setLoginModalVisibilty,
+                userPhotoURL,
+                setUserPhotoURL
             }}
         >
             {children}
