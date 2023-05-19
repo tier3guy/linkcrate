@@ -8,29 +8,19 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useState } from "react";
 
 // External Imports
-import { auth, googleAuthProvider } from "../firesbase";
+import { auth, googleAuthProvider, githubAuthProvider } from "../firesbase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 const Modals = ({ visible, setVisibility }) => {
-    const {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        fname,
-        setFname,
-        lname,
-        setLname,
-        setUser
-    } = useAuthContext();
+    const { email, setEmail, password, setPassword, setUser } =
+        useAuthContext();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const handleSignup = async () => {
         if (loading) return;
-        if (!fname || !lname || !email || !password)
-            return setError("Please fill all the fields!");
+        if (!email || !password) return setError("Please fill all the fields!");
 
         setLoading(true);
         try {
@@ -77,6 +67,28 @@ const Modals = ({ visible, setVisibility }) => {
         }
     };
 
+    const signupWithGithub = async () => {
+        if (loading) return;
+
+        setLoading(true);
+        try {
+            const res = await signInWithPopup(auth, githubAuthProvider);
+            if (res) {
+                const user = auth.currentUser;
+                setUser(user);
+                setVisibility(false);
+            }
+            setLoading(false);
+        } catch (err) {
+            if (
+                err.message === "Firebase: Error (auth/email-already-in-use)."
+            ) {
+                setError("Email already in use! Please try logging in.");
+            }
+            setLoading(false);
+        }
+    };
+
     return (
         <ModalsWrapper visible={visible}>
             <div
@@ -104,41 +116,31 @@ const Modals = ({ visible, setVisibility }) => {
 
                 <div className="p-8">
                     <div className="flex flex-col">
-                        <div className="flex justify-between space-x-2">
+                        <div className="flex flex-col space-y-1">
                             <div>
-                                <p className="text-slate-800">First Name*</p>
+                                <p className="ml-1 mb-1 text-slate-800">
+                                    Email*
+                                </p>
                                 <input
-                                    type="text"
-                                    className="border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    value={fname}
-                                    onChange={(e) => setFname(e.target.value)}
+                                    type="email"
+                                    className="w-full border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                             <div>
-                                <p className="text-slate-800">Last Name</p>
+                                <p className="ml-1 mb-1 text-slate-800 mt-4">
+                                    Password*
+                                </p>
                                 <input
-                                    type="text"
-                                    className="border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    value={lname}
-                                    onChange={(e) => setLname(e.target.value)}
+                                    type="password"
+                                    className="w-full border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                 />
                             </div>
-                        </div>
-                        <div className="flex flex-col space-y-2 mt-4">
-                            <p className="text-slate-800">Email*</p>
-                            <input
-                                type="email"
-                                className="border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <p className="text-slate-800 mt-4">Password*</p>
-                            <input
-                                type="password"
-                                className="border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
                         </div>
                         {error && <p className="text-red-500 mt-1">{error}</p>}
                         <button
@@ -161,9 +163,17 @@ const Modals = ({ visible, setVisibility }) => {
 
                     <button
                         onClick={signupWithGoogle}
-                        className="flex items-center justify-center border-2 rounded-3xl w-full py-2 hover:border-blue-500"
+                        className="flex items-center justify-center border-2 rounded-3xl w-full py-2 hover:border-red-500"
                     >
+                        <i className="fa-brands fa-google-plus-g text-red-500 mr-[10px]"></i>
                         Sign up with Google
+                    </button>
+                    <button
+                        onClick={signupWithGithub}
+                        className="mt-3 flex items-center justify-center border-2 rounded-3xl w-full py-2 hover:border-gray-800"
+                    >
+                        <i className="fa-brands fa-github mr-[10px]"></i>
+                        Sign up with Github
                     </button>
                 </div>
             </div>
