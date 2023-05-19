@@ -41,7 +41,7 @@ const Profile = () => {
                 src={selectedImageURL}
                 alt="User"
             />
-            <div className="mt-[100px] text-center">
+            <div className="mt-[90px] text-center">
                 <input
                     type="file"
                     ref={inputRef}
@@ -64,8 +64,6 @@ const Profile = () => {
                     Change your Profile Picture
                 </p>
             </div>
-
-            <p onClick={uploadImage}>Save</p>
         </div>
     );
 };
