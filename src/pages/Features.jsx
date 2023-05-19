@@ -1,9 +1,14 @@
 // Components
 import { FeaturesCard } from "../components";
 
+// Contexts
+import { useAuthContext } from "../contexts/AuthContext";
+
 const Features = () => {
+    const { loginModalVisibilty, setLoginModalVisibilty } = useAuthContext();
+
     return (
-        <div className=" w-[90%] m-auto">
+        <div id="features" className=" w-[90%] m-auto">
             <div className="bg-white rounded-3xl p-20 text-center shadow-sm">
                 <div className="md:h-full flex flex-col justify-center">
                     <p className="text-xl text-sky-800">Made it Easy</p>
@@ -50,7 +55,12 @@ const Features = () => {
                         your audience to find them easily. With just a few
                         steps.
                     </p>
-                    <button className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-3xl w-[14%] my-4 text-white">
+                    <button
+                        onClick={() => {
+                            setLoginModalVisibilty(!loginModalVisibilty);
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-3xl w-[14%] my-4 text-white"
+                    >
                         Sign up free
                     </button>
                 </div>

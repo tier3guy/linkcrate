@@ -9,6 +9,14 @@ import { useState } from "react";
 
 const Home = () => {
     const [username, setUsername] = useState("");
+    const [error, setError] = useState("");
+
+    const CheckUsername = () => {
+        setError("Username is already taken!");
+    };
+    const ClaimUsername = () => {
+        CheckUsername();
+    };
 
     return (
         <>
@@ -43,9 +51,17 @@ const Home = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-2 absolute right-1 h-[90%]">
+                        <button
+                            onClick={ClaimUsername}
+                            className="bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-2 absolute right-1 h-[90%]"
+                        >
                             Clame your Linkcrate
                         </button>
+                    </div>
+                    <div className="mt-3 h-3">
+                        {error && (
+                            <p className="text-red-500 text-base">{error}</p>
+                        )}
                     </div>
                 </div>
             </div>

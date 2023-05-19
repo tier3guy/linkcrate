@@ -5,12 +5,20 @@ import { Routes, Route } from "react-router-dom";
 import routes from "./routes";
 
 // Components
-import { Navbar } from "./components";
+import { Navbar, Modals } from "./components";
+
+// Contexts
+import { useAuthContext } from "./contexts/AuthContext";
 
 const App = () => {
+    const { loginModalVisibilty, setLoginModalVisibilty } = useAuthContext();
     return (
-        <div className="h-screen w-screen bg-slate-100 overflow-x-hidden">
+        <div className="h-screen w-screen bg-slate-100 overflow-x-hidden scroll-smooth">
             <Navbar />
+            <Modals
+                visible={loginModalVisibilty}
+                setVisibility={setLoginModalVisibilty}
+            />
             <Routes>
                 {routes.map((route, index) => (
                     <Route {...route} />
