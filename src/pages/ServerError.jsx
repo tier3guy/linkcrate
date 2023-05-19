@@ -1,19 +1,15 @@
 // Assests
-import ErrorImg from "../assets/ErrorBig.svg";
+import ErrorImg from "../assets/ServerError.svg";
 
 // External Imports
 import { Link } from "react-router-dom";
 
-const Error = () => {
+const ServerError = () => {
     return (
         <div className="h-screen w-screen flex flex-col items-center">
-            <img
-                src={ErrorImg}
-                alt="404"
-                className="h-[65%] md:ml-8 md:mt-24"
-            />
-            <p className="w-2/3 text-center mt-4">
-                Sorry, but the page you are looking for does not exists.{" "}
+            <img src={ErrorImg} alt="503" className="h-[65%] md:mt-24" />
+            <p className="w-2/3 text-center mt-8">
+                This page is still under construction.{" "}
             </p>
             <Link
                 to="/"
@@ -25,4 +21,4 @@ const Error = () => {
     );
 };
 
-export default Error;
+export default ServerError;

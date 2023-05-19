@@ -25,12 +25,12 @@ const links = [
     },
     {
         label: "Help",
-        to: "/help",
+        to: "/help-center",
         disabled: false
     },
     {
         label: "FAQ",
-        to: "/faq",
+        to: "/guide",
         disabled: false
     },
     {
@@ -77,6 +77,9 @@ const Navbar = () => {
                             <Link
                                 key={index}
                                 to={link.to}
+                                onClick={() => {
+                                    setDropdownVisibility(false);
+                                }}
                                 className={`${
                                     link.disabled
                                         ? "text-gray-400 cursor-not-allowed"
