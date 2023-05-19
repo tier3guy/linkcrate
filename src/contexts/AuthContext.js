@@ -28,8 +28,13 @@ export const AuthContextProvider = ({ children }) => {
             setUser(user);
             setLoading(false);
         });
+        setLoading(false);
         return unsubscribe;
     }, []);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     return (
         <AuthContext.Provider

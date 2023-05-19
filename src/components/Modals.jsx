@@ -9,9 +9,14 @@ import { useState } from "react";
 
 // External Imports
 import { auth, googleAuthProvider, githubAuthProvider } from "../firesbase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithPopup,
+    signOut
+} from "firebase/auth";
+import { Link } from "react-router-dom";
 
-const Modals = ({ visible, setVisibility }) => {
+export const CreateAccountModal = ({ visible, setVisibility }) => {
     const { email, setEmail, password, setPassword, setUser } =
         useAuthContext();
 
@@ -181,4 +186,104 @@ const Modals = ({ visible, setVisibility }) => {
     );
 };
 
-export default Modals;
+export const ProfileDropDownModal = ({ visible, setVisibility }) => {
+    const { setUser } = useAuthContext();
+
+    const dropdownMenus = [
+        [
+            {
+                name: "Profile",
+                icon: "fa-solid fa-user",
+                link: "/profile"
+            },
+            {
+                name: "Integrations",
+                icon: "fa-solid fa-puzzle-piece",
+                link: "/integrations"
+            },
+            {
+                name: "Settings",
+                icon: "fa-solid fa-cog",
+                link: "/settings"
+            }
+        ],
+        [
+            {
+                name: "Guide",
+                icon: "fa-solid fa-scroll",
+                link: "/guide"
+            },
+            {
+                name: "Help Center",
+                icon: "fa-solid fa-handshake-angle",
+                link: "/help-center"
+            }
+        ],
+        [
+            {
+                name: "Logout",
+                icon: "fa-solid fa-sign-out",
+                link: "/logout",
+                action: async () => {
+                    try {
+                        await signOut(auth);
+                        setUser(null);
+                        setVisibility(false);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            },
+            {
+                name: "Close",
+                icon: "fa-solid fa-circle-xmark",
+                action: () => {
+                    setVisibility(false);
+                }
+            }
+        ]
+    ];
+
+    return (
+        <div
+            className={`${
+                visible ? "block" : "hidden"
+            } z-999999 absolute right-[2em] top-[4em] rounded-3xl bg-white w-[300px] shadow-md`}
+        >
+            {dropdownMenus.map((menu, index) => (
+                <div
+                    key={index}
+                    className={`${
+                        index !== dropdownMenus.length - 1
+                            ? "border-b-2"
+                            : "border-b-0"
+                    } px-3 py-4`}
+                >
+                    {menu.map((item, index) => {
+                        return item.action ? (
+                            <div
+                                key={index}
+                                onClick={item.action}
+                                className={`cursor-pointer flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl`}
+                            >
+                                <i className={`fa-fw ${item.icon}`}></i>
+                                <p className="text-md">{item.name}</p>
+                            </div>
+                        ) : (
+                            <Link
+                                key={index}
+                                to={item.link}
+                                className={`flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl`}
+                            >
+                                <i
+                                    className={`fa-fw ${item.icon} text-slate-700`}
+                                ></i>
+                                <p className="text-md">{item.name}</p>
+                            </Link>
+                        );
+                    })}
+                </div>
+            ))}
+        </div>
+    );
+};

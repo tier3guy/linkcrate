@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import routes from "./routes";
 
 // Components
-import { Navbar, Modals } from "./components";
+import { Navbar, CreateAccountModal } from "./components";
 
 // Contexts
 import { useAuthContext } from "./contexts/AuthContext";
@@ -15,7 +15,7 @@ const App = () => {
     return (
         <div className="h-screen w-screen bg-slate-100 overflow-x-hidden scroll-smooth">
             <Navbar />
-            <Modals
+            <CreateAccountModal
                 visible={loginModalVisibilty}
                 setVisibility={setLoginModalVisibilty}
             />
