@@ -1,43 +1,57 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+// Pages
+import Error from "./Error";
 
 // External Components
 import { useParams } from "react-router-dom";
 
-// Contexts
-import { useAuthContext } from "../contexts/AuthContext";
-
 // Firebase
-import { retriveData, auth } from "../firesbase";
+import { retriveData, fetchUid } from "../firesbase";
+
+// Components
+import { Logo } from "../components";
 
 const LinkcrateProfile = () => {
     const { name } = useParams();
-    const { profile, setProfile, setLoading, setUser, user } = useAuthContext();
+    const [profile, setProfile] = useState(null);
+    const [notFound, setNotFound] = useState(false);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetch = async () => {
-            const data = await retriveData();
-            setProfile(data);
-        };
-        fetch();
-    }, [setProfile]);
-
-    useEffect(() => {
+    const fetchData = async () => {
         setLoading(true);
-        const unsubscribe = auth.onAuthStateChanged(async (user) => {
-            if (!user) return;
-            const prof = await retriveData();
-            setProfile(prof);
-            setUser(user);
-        });
-        setLoading(false);
-        return unsubscribe;
-    }, [setLoading, setProfile, setUser]);
+        try {
+            const res = await fetchUid(name);
+            if (res === undefined) {
+                setNotFound(true);
+            } else {
+                const uid = res.uid;
+                const data = await retriveData(uid);
+                setProfile(data);
+            }
+            setLoading(false);
+        } catch (err) {
+            console.log(err);
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    if (notFound) return <Error />;
+    if (loading)
+        return (
+            <div className="grid place-content-center bg-slate-800 h-screen w-screen text-white">
+                Loading...
+            </div>
+        );
     return (
         <div className="min-h-screen w-screen bg-slate-800 text-white">
             <div className="w-[95%] md:w-[50%] py-10 m-auto min-h-screen flex flex-col items-center">
                 <img
-                    src={user?.photoURL ? user?.photoURL : ""}
+                    src={profile?.photoURL ? profile?.photoURL : ""}
                     alt="user"
                     className="rounded-full w-28 h-28"
                 />
@@ -48,7 +62,7 @@ const LinkcrateProfile = () => {
                 <div className="my-8 w-full">
                     {profile?.links?.map((link, index) => {
                         return (
-                            <div className="mb-4 cursor-pointer text-center bg-slate-400 text-white p-4">
+                            <div className="mb-4 cursor-pointer text-center bg-slate-400 text-white p-4 hover:bg-slate-500">
                                 <a
                                     href={link.link}
                                     rel="noreferrer"
@@ -60,6 +74,10 @@ const LinkcrateProfile = () => {
                             </div>
                         );
                     })}
+                </div>
+                <div className="flex flex-col md:flex-row mt-10 md:items-center">
+                    <p className="text-white md:mr-4">Powered by</p>
+                    <Logo />
                 </div>
             </div>
         </div>

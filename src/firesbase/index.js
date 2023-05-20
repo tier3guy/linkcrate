@@ -44,9 +44,25 @@ export const updateFirebaseProfile = async (data) => {
     }
 };
 
-export const retriveData = async () => {
+export const retriveData = async (id = auth.currentUser.uid) => {
     try {
-        const userRef = doc(collection(db, "linkcrate"), auth.currentUser.uid);
+        const userRef = doc(collection(db, "linkcrate"), id);
+
+        const documentSnapshot = await getDoc(userRef);
+
+        if (documentSnapshot.exists()) {
+            return documentSnapshot.data();
+        } else {
+            console.log("Document not found.");
+        }
+    } catch (error) {
+        console.log("Error getting document:", error);
+    }
+};
+
+export const fetchUid = async (name) => {
+    try {
+        const userRef = doc(collection(db, "users"), name);
 
         const documentSnapshot = await getDoc(userRef);
 
