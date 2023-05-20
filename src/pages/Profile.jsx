@@ -172,6 +172,9 @@ const Profile = () => {
             await updateFirebaseProfile({
                 photoURL: imageURL
             });
+            await updateData({
+                photoURL: imageURL
+            });
         } catch (err) {
             console.log(err);
         }

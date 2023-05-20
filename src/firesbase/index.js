@@ -46,7 +46,7 @@ export const updateFirebaseProfile = async (data) => {
 
 export const retriveData = async () => {
     try {
-        const userRef = doc(collection(db, "users"), auth.currentUser.uid);
+        const userRef = doc(collection(db, "linkcrate"), auth.currentUser.uid);
 
         const documentSnapshot = await getDoc(userRef);
 
@@ -70,9 +70,7 @@ export const retriveAllLinkcrateName = async () => {
             ...doc.data()
         }));
 
-        const linkcrateClaimedNames = filteredData.map(
-            (data) => data.linkcrateName
-        );
+        const linkcrateClaimedNames = filteredData.map((data) => data.id);
         return linkcrateClaimedNames;
     } catch (err) {
         console.log(err);
@@ -81,7 +79,7 @@ export const retriveAllLinkcrateName = async () => {
 
 export const updateData = async (data) => {
     try {
-        const userRef = doc(collection(db, "users"), auth.currentUser.uid);
+        const userRef = doc(collection(db, "linkcrate"), auth.currentUser.uid);
         await updateDoc(userRef, data);
         return true;
     } catch (error) {

@@ -14,7 +14,8 @@ import {
     githubAuthProvider,
     deleteAccount,
     createData,
-    retriveData
+    retriveData,
+    retriveAllLinkcrateName
 } from "../firesbase";
 import {
     createUserWithEmailAndPassword,
@@ -39,10 +40,30 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
+    const checkIfNameAvailable = async () => {
+        try {
+            const res = await retriveAllLinkcrateName();
+            for (var i = 0; i < res.length; i++) {
+                if (res[i] === linkcrateName) return false;
+            }
+            return true;
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+
     const handleSignup = async () => {
         if (loading) return;
         if (!email || !password || !linkcrateName)
             return setError("All the field are necessary in this case!");
+
+        const res = await checkIfNameAvailable();
+        if (!res) {
+            setError(
+                "Linkcrate Name already exists. Please try something else."
+            );
+            return;
+        }
 
         setLoading(true);
         try {
@@ -54,16 +75,17 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
-                await createData("users", user.uid, {
+                await createData("linkcrate", user.uid, {
                     alternativeEmail: "",
                     bio: "",
                     jobTitle: "",
                     linkcrateName,
                     links: [],
-                    phone: 0
+                    phone: 0,
+                    photoURL: user.photoURL
                 });
-                await createData("linkcrate", user.uid, {
-                    linkcrateName
+                await createData("users", linkcrateName, {
+                    uid: user.uid
                 });
                 const prof = await retriveData();
                 setProfile(prof);
@@ -88,6 +110,13 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             );
             return;
         }
+        const res = await checkIfNameAvailable();
+        if (!res) {
+            setError(
+                "Linkcrate Name already exists. Please try something else."
+            );
+            return;
+        }
 
         setLoading(true);
         try {
@@ -95,16 +124,17 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
-                await createData("users", user.uid, {
+                await createData("linkcrate", user.uid, {
                     alternativeEmail: "",
                     bio: "",
                     jobTitle: "",
                     linkcrateName,
                     links: [],
-                    phone: 0
+                    phone: 0,
+                    photoURL: user.photoURL
                 });
-                await createData("linkcrate", user.uid, {
-                    linkcrateName
+                await createData("users", linkcrateName, {
+                    uid: user.uid
                 });
                 setVisibility(false);
             }
@@ -127,6 +157,13 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             );
             return;
         }
+        const res = await checkIfNameAvailable();
+        if (!res) {
+            setError(
+                "Linkcrate Name already exists. Please try something else."
+            );
+            return;
+        }
 
         setLoading(true);
         try {
@@ -134,16 +171,17 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
-                await createData("users", user.uid, {
+                await createData("linkcrate", user.uid, {
                     alternativeEmail: "",
                     bio: "",
                     jobTitle: "",
                     linkcrateName,
                     links: [],
-                    phone: 0
+                    phone: 0,
+                    photoURL: user.photoURL
                 });
-                await createData("linkcrate", user.uid, {
-                    linkcrateName
+                await createData("users", linkcrateName, {
+                    uid: user.uid
                 });
                 setVisibility(false);
             }
