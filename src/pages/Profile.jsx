@@ -21,6 +21,7 @@ import { Footer, Navbar } from "../components";
 
 const InputSection = ({
     label,
+    setLabel,
     placeholder,
     type,
     value,
@@ -31,7 +32,14 @@ const InputSection = ({
     required,
     description,
     enable,
-    labelPlaceholder
+    labelPlaceholder,
+    onChangeCustom,
+    onKeyPress,
+    canDelete,
+    index,
+    deleteFunction,
+    editFunction,
+    textareaStyle
 }) => {
     return (
         <div>
@@ -43,11 +51,12 @@ const InputSection = ({
                     contentEditable={enable ? true : false}
                     disabled={enable ? false : true}
                     value={label + (required ? " *" : "")}
-                    className={`scroll-none text-slate-800 text-xl w-[25%] resize-none focus:outline-none ${labelStyle} ${
+                    onChange={setLabel}
+                    className={`scroll-none text-slate-800 text-lg w-[25%] resize-none focus:outline-none ${labelStyle} ${
                         !enable
                             ? "caret-transparent bg-transparent"
                             : "px-4 py-3 bg-white h-[55px] rounded-lg shadow-lg"
-                    }`}
+                    } ${textareaStyle}`}
                 />
                 <input
                     type={type || "text"}
@@ -57,7 +66,12 @@ const InputSection = ({
                     id={label}
                     placeholder={placeholder}
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={
+                        onChangeCustom
+                            ? (e) => onChangeCustom(e)
+                            : (e) => setValue(e.target.value)
+                    }
+                    onKeyDown={onKeyPress ? (e) => onKeyPress(e) : () => {}}
                 />
                 {type === "textarea" && (
                     <textarea
@@ -71,6 +85,26 @@ const InputSection = ({
             </div>
             {description && (
                 <p className="text-sm text-slate-600 mt-3">{description}</p>
+            )}
+            {canDelete && (
+                <div className="flex space-x-4 mt-2 ml-2">
+                    <p
+                        onClick={() => {
+                            deleteFunction(index);
+                        }}
+                        className="text-slate-600 cursor-pointer"
+                    >
+                        Remove Link
+                    </p>
+                    <p
+                        onClick={() => {
+                            // editFunction(index);
+                        }}
+                        className="text-slate-500 cursor-not-allowed"
+                    >
+                        Edit
+                    </p>
+                </div>
             )}
         </div>
     );
@@ -92,7 +126,14 @@ const Profile = () => {
     const [job, setJob] = useState("");
     const [alternativeEmail, setAlternativeEmail] = useState("");
     const [linksAttached, setLinksAttached] = useState([]);
-    const [newLinkTitle, setNewLinkTitle] = useState("");
+    const [newLinkTitle, setNewLinkTitle] = useState({
+        title: "",
+        link: ""
+    });
+
+    const deleteLink = (index) => {
+        setLinksAttached(linksAttached.filter((link, i) => i !== index));
+    };
 
     // To render image
     useEffect(() => {
@@ -277,6 +318,13 @@ const Profile = () => {
                                             description={link?.description}
                                             type="url"
                                             enable
+                                            canDelete
+                                            deleteFunction={deleteLink}
+                                            index={index}
+                                            textareaStyle={
+                                                "border-3 border-blue-500"
+                                            }
+                                            inputStyle={"w-[80%]"}
                                         />
                                     </div>
                                 </div>
@@ -289,12 +337,37 @@ const Profile = () => {
                         >
                             <div className="flex flex-col space-y-2 md:space-y-0 md:space-x-2">
                                 <InputSection
-                                    label={""}
+                                    label={newLinkTitle.title}
+                                    setLabel={(e) => {
+                                        setNewLinkTitle((prev) => ({
+                                            ...prev,
+                                            title: e.target.value
+                                        }));
+                                    }}
                                     placeholder={"Enter the link here"}
-                                    value={newLinkTitle}
+                                    value={newLinkTitle.link}
                                     setValue={setNewLinkTitle}
                                     labelPlaceholder={"Title"}
                                     enable
+                                    onChangeCustom={(e) => {
+                                        setNewLinkTitle((prev) => ({
+                                            ...prev,
+                                            link: e.target.value
+                                        }));
+                                    }}
+                                    onKeyPress={(e) => {
+                                        if (13 === e.keyCode) {
+                                            setLinksAttached((prev) => [
+                                                ...prev,
+                                                newLinkTitle
+                                            ]);
+
+                                            setNewLinkTitle((prev) => ({
+                                                title: "",
+                                                link: ""
+                                            }));
+                                        }
+                                    }}
                                 />
                             </div>
                         </div>

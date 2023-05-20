@@ -137,7 +137,7 @@ const Navbar = () => {
                             : "https://api.dicebear.com/6.x/identicon/svg"
                     }
                     alt="User"
-                    className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-500"
+                    className="w-10 h-10 rounded-full cursor-pointer border-1 border-gray-500"
                 />
             </div>
         </nav>
