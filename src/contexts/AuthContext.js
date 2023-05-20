@@ -17,8 +17,10 @@ export const AuthContextProvider = ({ children }) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
-    // For Account Creation Form
+    // For Account Creation and Login Form Only
     const [loginModalVisibilty, setLoginModalVisibilty] = useState(false);
+    const [createAccountModalVisibility, setCreateAccountModalVisibility] =
+        useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [fname, setFname] = useState("");
@@ -53,6 +55,8 @@ export const AuthContextProvider = ({ children }) => {
                 setLname,
                 loginModalVisibilty,
                 setLoginModalVisibilty,
+                createAccountModalVisibility,
+                setCreateAccountModalVisibility,
                 userPhotoURL,
                 setUserPhotoURL
             }}

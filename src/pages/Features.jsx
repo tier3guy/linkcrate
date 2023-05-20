@@ -5,7 +5,8 @@ import { FeaturesCard } from "../components";
 import { useAuthContext } from "../contexts/AuthContext";
 
 const Features = () => {
-    const { loginModalVisibilty, setLoginModalVisibilty } = useAuthContext();
+    const { createAccountModalVisibility, setCreateAccountModalVisibility } =
+        useAuthContext();
 
     return (
         <div id="features" className=" w-[90%] m-auto">
@@ -57,7 +58,9 @@ const Features = () => {
                     </p>
                     <button
                         onClick={() => {
-                            setLoginModalVisibilty(!loginModalVisibilty);
+                            setCreateAccountModalVisibility(
+                                !createAccountModalVisibility
+                            );
                         }}
                         className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-3xl w-[14%] my-4 text-white"
                     >

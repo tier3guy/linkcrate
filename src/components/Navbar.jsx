@@ -14,8 +14,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 const links = [
     {
         label: "Features",
-        id: "features",
-        to: "/features",
+        to: "/#features",
         disabled: false
     },
     {
@@ -46,8 +45,13 @@ const links = [
 ];
 
 const Navbar = () => {
-    const { loginModalVisibilty, setLoginModalVisibilty, user } =
-        useAuthContext();
+    const {
+        loginModalVisibilty,
+        setLoginModalVisibilty,
+        createAccountModalVisibility,
+        setCreateAccountModalVisibility,
+        user
+    } = useAuthContext();
 
     const [dropdownVisibility, setDropdownVisibility] = useState(false);
 
@@ -97,12 +101,19 @@ const Navbar = () => {
                     user ? "hidden" : "block"
                 } flex space-x-5 items-center`}
             >
-                <p className="text-slate-900 font-medium cursor-pointer">
+                <p
+                    onClick={() => {
+                        setLoginModalVisibilty(!loginModalVisibilty);
+                    }}
+                    className="text-slate-900 font-medium cursor-pointer"
+                >
                     Login
                 </p>
                 <button
                     onClick={() => {
-                        setLoginModalVisibilty(!loginModalVisibilty);
+                        setCreateAccountModalVisibility(
+                            !createAccountModalVisibility
+                        );
                     }}
                     className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-3xl"
                 >
