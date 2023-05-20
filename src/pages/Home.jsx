@@ -4,18 +4,41 @@ import Features from "./Features";
 // Components
 import { Footer, Navbar } from "../components";
 
+// Firebase
+import { retriveAllLinkcrateName } from "../firesbase";
+
 // Internal Imports
 import { useState } from "react";
 
+// Contexts
+import { useAuthContext } from "../contexts/AuthContext";
+
 const Home = () => {
-    const [username, setUsername] = useState("");
+    const { linkcrateName, setLinkcrateName, setCreateAccountModalVisibility } =
+        useAuthContext();
     const [error, setError] = useState("");
 
-    const CheckUsername = () => {
-        setError("Username is already taken!");
+    const CheckUsername = async () => {
+        var found = false;
+        const allClaimedLinkcrateNames = await retriveAllLinkcrateName();
+        for (let i = 0; i < allClaimedLinkcrateNames.length; i++) {
+            if (allClaimedLinkcrateNames[i] === linkcrateName) {
+                found = true;
+                break;
+            }
+        }
+        return found;
     };
-    const ClaimUsername = () => {
-        CheckUsername();
+
+    const ClaimUsername = async () => {
+        const res = await CheckUsername();
+        if (res) {
+            setError(
+                "Linkcrate Name already exists. Please try something else."
+            );
+            return;
+        }
+        setCreateAccountModalVisibility(true);
     };
 
     return (
@@ -49,8 +72,8 @@ const Home = () => {
                             placeholder="your name"
                             type="text"
                             className="w-full h-full outline-none"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={linkcrateName}
+                            onChange={(e) => setLinkcrateName(e.target.value)}
                         />
                         <button
                             onClick={ClaimUsername}

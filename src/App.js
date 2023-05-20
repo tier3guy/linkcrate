@@ -5,7 +5,11 @@ import { Routes, Route } from "react-router-dom";
 import routes from "./routes";
 
 // Components
-import { Navbar, CreateAccountModal, LoginModal } from "./components";
+import {
+    CreateAccountModal,
+    LoginModal,
+    DeleteAccountModal
+} from "./components";
 
 // Contexts
 import { useAuthContext } from "./contexts/AuthContext";
@@ -15,7 +19,9 @@ const App = () => {
         loginModalVisibilty,
         setLoginModalVisibilty,
         createAccountModalVisibility,
-        setCreateAccountModalVisibility
+        setCreateAccountModalVisibility,
+        deleteAccountModalVisibility,
+        setDeleteAccountModalVisibility
     } = useAuthContext();
     return (
         <div className="h-screen w-screen bg-slate-100 overflow-x-hidden scroll-smooth">
@@ -26,6 +32,10 @@ const App = () => {
             <LoginModal
                 visible={loginModalVisibilty}
                 setVisibility={setLoginModalVisibilty}
+            />
+            <DeleteAccountModal
+                visible={deleteAccountModalVisibility}
+                setVisibility={setDeleteAccountModalVisibility}
             />
             <Routes>
                 {routes.map((route) => (

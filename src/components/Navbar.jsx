@@ -50,6 +50,8 @@ const Navbar = () => {
         setLoginModalVisibilty,
         createAccountModalVisibility,
         setCreateAccountModalVisibility,
+        deleteAccountModalVisibility,
+        setDeleteAccountModalVisibility,
         user
     } = useAuthContext();
 
@@ -60,6 +62,8 @@ const Navbar = () => {
             <ProfileDropDownModal
                 visible={dropdownVisibility}
                 setVisibility={setDropdownVisibility}
+                setDeleteAccountModal={setDeleteAccountModalVisibility}
+                deleteAccountModal={deleteAccountModalVisibility}
             />
             <div className="flex space-x-10 items-center">
                 <Logo />
@@ -127,9 +131,13 @@ const Navbar = () => {
                     onClick={() => {
                         setDropdownVisibility(!dropdownVisibility);
                     }}
-                    src={user?.photoURL}
+                    src={
+                        user?.photoURL
+                            ? user.photoURL
+                            : "https://api.dicebear.com/6.x/identicon/svg"
+                    }
                     alt="User"
-                    className="w-10 h-10 rounded-full cursor-pointer"
+                    className="w-10 h-10 rounded-full cursor-pointer border-2 border-gray-500"
                 />
             </div>
         </nav>

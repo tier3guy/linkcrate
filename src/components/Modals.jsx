@@ -8,7 +8,14 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { useState } from "react";
 
 // External Imports
-import { auth, googleAuthProvider, githubAuthProvider } from "../firesbase";
+import {
+    auth,
+    googleAuthProvider,
+    githubAuthProvider,
+    deleteAccount,
+    createData,
+    retriveData
+} from "../firesbase";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -18,15 +25,24 @@ import {
 import { Link } from "react-router-dom";
 
 export const CreateAccountModal = ({ visible, setVisibility }) => {
-    const { email, setEmail, password, setPassword, setUser } =
-        useAuthContext();
+    const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        setUser,
+        linkcrateName,
+        setLinkcrateName,
+        setProfile
+    } = useAuthContext();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const handleSignup = async () => {
         if (loading) return;
-        if (!email || !password) return setError("Please fill all the fields!");
+        if (!email || !password || !linkcrateName)
+            return setError("All the field are necessary in this case!");
 
         setLoading(true);
         try {
@@ -38,6 +54,19 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
+                await createData("users", user.uid, {
+                    alternativeEmail: "",
+                    bio: "",
+                    jobTitle: "",
+                    linkcrateName,
+                    links: [],
+                    phone: 0
+                });
+                await createData("linkcrate", user.uid, {
+                    linkcrateName
+                });
+                const prof = await retriveData();
+                setProfile(prof);
                 setVisibility(false);
             }
             setLoading(false);
@@ -53,6 +82,12 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
 
     const signupWithGoogle = async () => {
         if (loading) return;
+        if (!linkcrateName) {
+            setError(
+                "Linkcrate Name should not be empty! You have to choose one domain before creating the account."
+            );
+            return;
+        }
 
         setLoading(true);
         try {
@@ -60,6 +95,17 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
+                await createData("users", user.uid, {
+                    alternativeEmail: "",
+                    bio: "",
+                    jobTitle: "",
+                    linkcrateName,
+                    links: [],
+                    phone: 0
+                });
+                await createData("linkcrate", user.uid, {
+                    linkcrateName
+                });
                 setVisibility(false);
             }
             setLoading(false);
@@ -75,6 +121,12 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
 
     const signupWithGithub = async () => {
         if (loading) return;
+        if (!linkcrateName) {
+            setError(
+                "Linkcrate Name should not be empty! You have to choose one domain before creating the account."
+            );
+            return;
+        }
 
         setLoading(true);
         try {
@@ -82,6 +134,17 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             if (res) {
                 const user = auth.currentUser;
                 setUser(user);
+                await createData("users", user.uid, {
+                    alternativeEmail: "",
+                    bio: "",
+                    jobTitle: "",
+                    linkcrateName,
+                    links: [],
+                    phone: 0
+                });
+                await createData("linkcrate", user.uid, {
+                    linkcrateName
+                });
                 setVisibility(false);
             }
             setLoading(false);
@@ -98,7 +161,7 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
     return (
         <ModalsWrapper visible={visible}>
             <div
-                className={`border-1 min-w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                className={`border-1 w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
                     visible
                         ? "scale-100 animate-zoomIn"
                         : "scale-0 animate-zoomOut"
@@ -123,6 +186,21 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
                 <div className="p-8">
                     <div className="flex flex-col">
                         <div className="flex flex-col space-y-1">
+                            <div className="mb-4">
+                                <p className="ml-1 mb-1 text-slate-800">
+                                    Linkcrate Name*
+                                </p>
+                                <input
+                                    type="text"
+                                    className="w-full border-2 border-slate-200 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    value={linkcrateName}
+                                    onChange={(e) =>
+                                        setLinkcrateName(e.target.value)
+                                    }
+                                />
+                            </div>
+                        </div>
+                        <div className="flex space-x-2 items-center">
                             <div>
                                 <p className="ml-1 mb-1 text-slate-800">
                                     Email*
@@ -135,7 +213,7 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
                                 />
                             </div>
                             <div>
-                                <p className="ml-1 mb-1 text-slate-800 mt-4">
+                                <p className="ml-1 mb-1 text-slate-800">
                                     Password*
                                 </p>
                                 <input
@@ -348,7 +426,12 @@ export const LoginModal = ({ visible, setVisibility }) => {
     );
 };
 
-export const ProfileDropDownModal = ({ visible, setVisibility }) => {
+export const ProfileDropDownModal = ({
+    visible,
+    setVisibility,
+    setDeleteAccountModal,
+    deleteAccountModal
+}) => {
     const { setUser } = useAuthContext();
 
     const dropdownMenus = [
@@ -391,6 +474,7 @@ export const ProfileDropDownModal = ({ visible, setVisibility }) => {
                         await signOut(auth);
                         setUser(null);
                         setVisibility(false);
+                        window.location.reload();
                     } catch (err) {
                         console.log(err);
                     }
@@ -402,6 +486,15 @@ export const ProfileDropDownModal = ({ visible, setVisibility }) => {
                 action: () => {
                     setVisibility(false);
                 }
+            },
+            {
+                name: "Delete Account",
+                icon: "fa-solid fa-trash",
+                link: "/delete-account",
+                action: () => {
+                    setDeleteAccountModal(!deleteAccountModal);
+                },
+                style: "bg-red-600 hover:bg-red-700 text-white"
             }
         ]
     ];
@@ -426,7 +519,9 @@ export const ProfileDropDownModal = ({ visible, setVisibility }) => {
                             <div
                                 key={index}
                                 onClick={item.action}
-                                className={`cursor-pointer flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl`}
+                                className={`cursor-pointer flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl ${
+                                    item.style ? item.style : ""
+                                }`}
                             >
                                 <i className={`fa-fw ${item.icon}`}></i>
                                 <p className="text-md">{item.name}</p>
@@ -435,7 +530,9 @@ export const ProfileDropDownModal = ({ visible, setVisibility }) => {
                             <Link
                                 key={index}
                                 to={item.link}
-                                className={`flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl`}
+                                className={`flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-3xl ${
+                                    item.style ? item.style : ""
+                                }`}
                             >
                                 <i
                                     className={`fa-fw ${item.icon} text-slate-700`}
@@ -447,5 +544,60 @@ export const ProfileDropDownModal = ({ visible, setVisibility }) => {
                 </div>
             ))}
         </div>
+    );
+};
+
+export const DeleteAccountModal = ({ visible, setVisibility }) => {
+    return (
+        <ModalsWrapper visible={visible}>
+            <div
+                className={`border-1 w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                    visible
+                        ? "scale-100 animate-zoomIn"
+                        : "scale-0 animate-zoomOut"
+                }`}
+            >
+                <div
+                    onClick={() => {
+                        setVisibility(!visible);
+                    }}
+                    className="right-[-0.5rem] top-[-0.5rem] cursor-pointer absolute bg-gray-300 rounded-full h-8 w-8 grid place-content-center"
+                >
+                    <i className="fa-solid fa-xmark text-white"></i>
+                </div>
+                <div className="p-5">
+                    <p className="text-2xl">Are you sure ?</p>
+                    <p className="text-slate-400 my-1">
+                        Deleting your account means there is no way you can
+                        again access your Linkcrate profile. Do you still want
+                        to delete your account?
+                    </p>
+                </div>
+                <div className="flex space-x-2 p-5">
+                    <button
+                        onClick={() => {
+                            setVisibility(false);
+                        }}
+                        className="p-4 rounded-lg bg-gray-400 cursor-pointer w-full"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={async () => {
+                            try {
+                                await deleteAccount();
+                                window.location.reload();
+                                setVisibility(false);
+                            } catch (err) {
+                                console.log(err);
+                            }
+                        }}
+                        className="p-4 rounded-lg bg-red-600 text-white cursor-pointer w-full"
+                    >
+                        Yes, Delete
+                    </button>
+                </div>
+            </div>
+        </ModalsWrapper>
     );
 };

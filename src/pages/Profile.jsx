@@ -7,71 +7,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 
 // External Imports
-import { storage, updateFirebaseProfile, auth } from "../firesbase";
+import {
+    storage,
+    updateFirebaseProfile,
+    auth,
+    updateData,
+    retriveData
+} from "../firesbase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-// import { createAvatar } from "@dicebear/core";
-// import {
-//     lorelei,
-//     bigEars,
-//     adventurer,
-//     avataaars,
-//     bigSmile,
-//     bottts,
-//     croodles,
-//     funEmoji,
-//     identicon,
-//     initials,
-//     micah,
-//     miniavs,
-//     notionists,
-//     openPeeps,
-//     personas,
-//     pixelArt,
-//     shapes,
-//     thumbs
-// } from "@dicebear/collection";
-
-// Utils
-import { refactorName } from "../utils/";
 
 // Components
 import { Footer, Navbar } from "../components";
-
-// const generateRandomImage = async () => {
-//     const avatarOptions = [
-//         lorelei,
-//         bigEars,
-//         adventurer,
-//         avataaars,
-//         bigSmile,
-//         bottts,
-//         croodles,
-//         funEmoji,
-//         identicon,
-//         initials,
-//         micah,
-//         miniavs,
-//         notionists,
-//         openPeeps,
-//         personas,
-//         pixelArt,
-//         shapes,
-//         thumbs
-//     ];
-//     const randomAvatar =
-//         avatarOptions[Math.floor(Math.random() * avatarOptions.length)];
-
-//     const avatar = createAvatar(randomAvatar, {
-//         size: 128
-//         // ... other options
-//     });
-//     const uri = avatar.toDataUriSync();
-//     const image = await avatar.toFile("avatar.svg");
-//     return {
-//         uri,
-//         image
-//     };
-// };
 
 const InputSection = ({
     label,
@@ -131,14 +77,15 @@ const InputSection = ({
 };
 
 const Profile = () => {
-    const { user, setUser, setLoading } = useAuthContext();
+    const { user, setUser, setLoading, profile, setProfile } = useAuthContext();
     const inputRef = useRef(null);
     const [image, setImage] = useState(null);
     const [selectedImageURL, setSelectedImageURL] = useState(null);
+    const [loadingIn, setLoadingIn] = useState(false);
 
     // User Data To Store
     const [displayName, setDisplayName] = useState(
-        user?.displayName ? refactorName(user?.displayName) : ""
+        profile?.linkcrateName ? profile?.linkcrateName : ""
     );
     const [bio, setBio] = useState("");
     const [phone, setPhone] = useState("");
@@ -147,20 +94,32 @@ const Profile = () => {
     const [linksAttached, setLinksAttached] = useState([]);
     const [newLinkTitle, setNewLinkTitle] = useState("");
 
-    // To render image and name
+    // To render image
     useEffect(() => {
         setLoading(true);
-        const unsubscribe = auth.onAuthStateChanged((user) => {
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (!user) return;
             setUser(user);
+            const prof = await retriveData();
+            setProfile(prof);
             setSelectedImageURL(user?.photoURL);
-            setDisplayName(
-                user?.displayName ? refactorName(user?.displayName) : ""
-            );
         });
         setLoading(false);
         return unsubscribe;
     }, []);
+
+    // To render name
+    useEffect(() => {
+        if (!profile) return;
+        setLoading(true);
+        setDisplayName(profile?.linkcrateName);
+        setBio(profile?.bio);
+        setPhone(profile?.phone);
+        setJob(profile?.jobTitle);
+        setAlternativeEmail(profile?.alternativeEmail);
+        setLinksAttached(profile?.links);
+        setLoading(false);
+    }, [profile]);
 
     const uploadImage = async () => {
         if (!image) return;
@@ -175,6 +134,24 @@ const Profile = () => {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const handleUpdate = async () => {
+        setLoadingIn(true);
+        try {
+            await updateData({
+                alternativeEmail,
+                bio,
+                phone,
+                jobTitle: job,
+                links: linksAttached,
+                linkcrateName: displayName
+            });
+            await uploadImage();
+        } catch (err) {
+            console.log(err);
+        }
+        setLoadingIn(false);
     };
 
     return (
@@ -254,7 +231,7 @@ const Profile = () => {
                     <InputSection
                         label={"Phone"}
                         placeholder={"Can we have your contact number ?"}
-                        value={phone}
+                        value={phone === 0 ? "" : phone}
                         setValue={setPhone}
                     />
                     <InputSection
@@ -296,7 +273,7 @@ const Profile = () => {
                                         <InputSection
                                             label={link?.title}
                                             placeholder={"URL"}
-                                            value={link?.url}
+                                            value={link?.link}
                                             description={link?.description}
                                             type="url"
                                             enable
@@ -333,10 +310,10 @@ const Profile = () => {
 
                 {/* Save Button */}
                 <button
-                    onClick={uploadImage}
+                    onClick={handleUpdate}
                     className="mt-10 bg-blue-600 w-full md:w-[70%] px-6 py-3 rounded-3xl hover:bg-blue-700 text-white"
                 >
-                    Update Profile
+                    {loadingIn ? "Loading..." : "Update Profile"}
                 </button>
             </div>
             <Footer />
