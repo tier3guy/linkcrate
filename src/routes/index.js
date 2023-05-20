@@ -1,4 +1,10 @@
-import { Home, Profile, ErrorPage, ServerError } from "../pages";
+import {
+    Home,
+    Profile,
+    ErrorPage,
+    ServerError,
+    LinkcrateProfile
+} from "../pages";
 
 const routes = [
     {
@@ -65,8 +71,15 @@ const routes = [
         errorElement: <ErrorPage />
     },
     {
+        key: "9",
+        path: "/:name",
+        exact: true,
+        element: <LinkcrateProfile />,
+        errorElement: <ErrorPage />
+    },
+    {
         key: "404",
-        path: "*",
+        path: "/:name/*",
         element: <ErrorPage />,
         errorElement: <ErrorPage />
     }

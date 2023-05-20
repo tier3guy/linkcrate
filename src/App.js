@@ -19,7 +19,6 @@ const App = () => {
     } = useAuthContext();
     return (
         <div className="h-screen w-screen bg-slate-100 overflow-x-hidden scroll-smooth">
-            <Navbar />
             <CreateAccountModal
                 visible={createAccountModalVisibility}
                 setVisibility={setCreateAccountModalVisibility}

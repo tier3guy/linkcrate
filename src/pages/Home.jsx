@@ -2,7 +2,7 @@
 import Features from "./Features";
 
 // Components
-import { Footer } from "../components";
+import { Footer, Navbar } from "../components";
 
 // Internal Imports
 import { useState } from "react";
@@ -20,6 +20,7 @@ const Home = () => {
 
     return (
         <>
+            <Navbar />
             <div className="h-screen pt-20 px-16">
                 <div className="md:h-full md:w-full flex flex-col justify-center">
                     <p className="text-xl text-sky-800">
