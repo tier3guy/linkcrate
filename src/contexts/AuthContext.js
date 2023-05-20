@@ -2,6 +2,9 @@
 // Internal Imports
 import { useState, useEffect, createContext, useContext } from "react";
 
+// Pages
+import { LoadingPage } from "../pages";
+
 // Firebase Imports
 import { auth } from "../firesbase/index";
 
@@ -61,7 +64,7 @@ export const AuthContextProvider = ({ children }) => {
                 setUserPhotoURL
             }}
         >
-            {children}
+            {loading ? <LoadingPage /> : children}
         </AuthContext.Provider>
     );
 };
