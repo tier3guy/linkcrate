@@ -24,6 +24,14 @@ import {
     signOut
 } from "firebase/auth";
 import { Link } from "react-router-dom";
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    LinkedinShareButton,
+    TelegramShareButton,
+    TwitterShareButton,
+    WhatsappShareButton
+} from "react-share";
 
 export const CreateAccountModal = ({ visible, setVisibility }) => {
     const {
@@ -646,6 +654,88 @@ export const DeleteAccountModal = ({ visible, setVisibility }) => {
                     >
                         Yes, Delete
                     </button>
+                </div>
+            </div>
+        </ModalsWrapper>
+    );
+};
+
+export const ShareProfileModal = ({ visible, setVisibility, url }) => {
+    const [message, setMessage] = useState("");
+
+    return (
+        <ModalsWrapper visible={visible}>
+            <div
+                className={`border-1 w-[90%] m-auto md:w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                    visible
+                        ? "scale-100 animate-zoomIn"
+                        : "scale-0 animate-zoomOut"
+                }`}
+            >
+                <div
+                    onClick={() => {
+                        setVisibility(!visible);
+                    }}
+                    className="right-[-0.5rem] top-[-0.5rem] cursor-pointer absolute bg-gray-300 rounded-full h-8 w-8 grid place-content-center"
+                >
+                    <i className="fa-solid fa-xmark text-white"></i>
+                </div>
+                <div className=" px-4 py-6 text-slate-800 text-xl">
+                    Share your Linkcrate profile to your friends.
+                </div>
+                <div className="border-y-2 px-4 py-6 flex space-x-2 justify-between  md:justify-evenly">
+                    <WhatsappShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-whatsapp text-slate-800 text-3xl"></i>
+                    </WhatsappShareButton>
+                    <FacebookShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-facebook-f text-slate-800 text-3xl"></i>
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-twitter text-slate-800 text-3xl"></i>
+                    </TwitterShareButton>
+                    <LinkedinShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-linkedin-in text-slate-800 text-3xl"></i>
+                    </LinkedinShareButton>
+                    <TelegramShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-telegram text-slate-800 text-3xl"></i>
+                    </TelegramShareButton>
+                    <EmailShareButton
+                        className="h-8 w-8 grid place-content-center"
+                        url={url}
+                    >
+                        <i className="fa-brands fa-at text-slate-800 text-3xl"></i>
+                    </EmailShareButton>
+                </div>
+                <div className="px-4 py-6">
+                    <p className="text-slate-800 text-xl">
+                        or just{" "}
+                        <span
+                            onClick={() => {
+                                navigator.clipboard.writeText(url);
+                                setMessage("Link Copied!");
+                            }}
+                            className="border-yellow-500 border-b-2 cursor-pointer"
+                        >
+                            copy
+                        </span>{" "}
+                        the url to share anywhere!
+                    </p>
+                    <p className="mt-4 text-[14px]">{message}</p>
                 </div>
             </div>
         </ModalsWrapper>

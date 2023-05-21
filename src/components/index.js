@@ -2,7 +2,8 @@ import {
     CreateAccountModal,
     ProfileDropDownModal,
     LoginModal,
-    DeleteAccountModal
+    DeleteAccountModal,
+    ShareProfileModal
 } from "./Modals";
 
 export { default as Navbar } from "./Navbar";
@@ -15,5 +16,6 @@ export {
     CreateAccountModal,
     ProfileDropDownModal,
     LoginModal,
-    DeleteAccountModal
+    DeleteAccountModal,
+    ShareProfileModal
 };
