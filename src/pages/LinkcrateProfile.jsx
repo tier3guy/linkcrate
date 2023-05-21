@@ -5,6 +5,18 @@ import Error from "./Error";
 
 // External Components
 import { useParams } from "react-router-dom";
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    MailruShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TwitterShareButton,
+    WhatsappShareButton
+} from "react-share";
 
 // Firebase
 import { retriveData, fetchUid } from "../firesbase";

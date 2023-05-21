@@ -500,6 +500,18 @@ export const ProfileDropDownModal = ({
                 name: "Help Center",
                 icon: "fa-solid fa-handshake-angle",
                 link: "/help-center"
+            },
+            {
+                name: "Blogs",
+                icon: "fa-solid fa-blog",
+                link: "/blogs",
+                style: "md:hidden"
+            },
+            {
+                name: "FAQ",
+                icon: "fa-solid fa-question",
+                link: "/faq",
+                style: "md:hidden"
             }
         ],
         [

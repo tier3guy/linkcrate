@@ -97,7 +97,7 @@ const Home = () => {
                     onClick={() => {
                         setCreateAccountModalVisibility(true);
                     }}
-                    className="bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-5"
+                    className="md:hidden bg-blue-500 hover:bg-blue-700 text-white rounded-[6rem] px-5 py-5"
                 >
                     Clame your Linkcrate
                 </button>
