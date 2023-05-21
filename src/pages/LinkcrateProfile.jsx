@@ -76,16 +76,14 @@ const LinkcrateProfile = () => {
                     <div className="my-8 w-full">
                         {profile?.links?.map((link, index) => {
                             return (
-                                <div className="mb-4 cursor-pointer text-center bg-slate-400 text-white p-4 hover:bg-slate-500">
-                                    <a
-                                        href={link.link}
-                                        rel="noreferrer"
-                                        key={index}
-                                        className="text-white text-center"
-                                    >
-                                        {link.title}
-                                    </a>
-                                </div>
+                                <a
+                                    href={link.link}
+                                    rel="noreferrer"
+                                    key={index}
+                                    className="mb-4 cursor-pointer text-center bg-slate-400 text-white p-4 hover:bg-slate-500 block"
+                                >
+                                    {link.title}
+                                </a>
                             );
                         })}
                     </div>
