@@ -40,6 +40,8 @@ const LinkcrateProfile = () => {
         fetchData();
     }, []);
 
+    const shareProfile = () => {};
+
     if (notFound) return <Error />;
     if (loading)
         return (
@@ -47,9 +49,17 @@ const LinkcrateProfile = () => {
                 Loading...
             </div>
         );
+
     return (
         <div className="min-h-screen w-screen bg-slate-800 text-white">
-            <div className="w-[95%] md:w-[50%] py-10 m-auto min-h-screen flex flex-col items-center">
+            <button
+                onClick={shareProfile}
+                className="absolute right-2 top-2 bg-slate-400 h-10 w-10 rounded-full grid place-content-center"
+            >
+                <i className="text-white fa-solid fa-share-nodes"></i>
+            </button>
+
+            <div className="w-[90%] md:w-[50%] pt-20 md:py-10 m-auto min-h-screen flex flex-col items-center">
                 <img
                     src={profile?.photoURL ? profile?.photoURL : ""}
                     alt="user"

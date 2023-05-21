@@ -44,7 +44,7 @@ const InputSection = ({
     return (
         <div>
             <div
-                className={`flex flex-col justify-between md:flex-row items-center ${style}`}
+                className={`flex flex-col justify-between md:flex-row md:items-center ${style}`}
             >
                 <textarea
                     placeholder={labelPlaceholder}
@@ -52,17 +52,17 @@ const InputSection = ({
                     disabled={enable ? false : true}
                     value={label + (required ? " *" : "")}
                     onChange={setLabel}
-                    className={`scroll-none text-slate-800 text-lg w-[25%] resize-none focus:outline-none ${labelStyle} ${
+                    className={`scroll-none text-slate-800 text-lg md:w-[25%] resize-none focus:outline-none ${labelStyle} ${
                         !enable
-                            ? "caret-transparent bg-transparent"
-                            : "px-4 py-3 bg-white h-[55px] rounded-lg shadow-lg"
+                            ? "caret-transparent bg-transparent h-[40px] md:h-full"
+                            : "mb-2 md:mb-0 px-4 py-3 bg-white h-[55px] rounded-lg shadow-lg"
                     } ${textareaStyle}`}
                 />
                 <input
                     type={type || "text"}
                     className={`${
                         type === "textarea" ? "hidden" : "block"
-                    } md:w-[70%] py-4 px-5 h-[55px] border-slate-200 rounded-lg shadow-lg focus:outline-none text-lg ${inputStyle}`}
+                    } w-full md:w-[70%] py-4 px-5 h-[55px] border-slate-200 rounded-lg shadow-lg focus:outline-none text-lg ${inputStyle}`}
                     id={label}
                     placeholder={placeholder}
                     value={value}
@@ -75,7 +75,7 @@ const InputSection = ({
                 />
                 {type === "textarea" && (
                     <textarea
-                        className={`hidden md:block py-4 px-5 border-slate-200 rounded-lg shadow-lg focus:outline-none text-lg ${inputStyle}`}
+                        className={`md:block py-4 px-5 border-slate-200 rounded-lg shadow-lg focus:outline-none text-lg ${inputStyle}`}
                         id={label}
                         placeholder={placeholder}
                         value={value}
@@ -116,6 +116,7 @@ const Profile = () => {
     const [image, setImage] = useState(null);
     const [selectedImageURL, setSelectedImageURL] = useState(null);
     const [loadingIn, setLoadingIn] = useState(false);
+    const [error, setError] = useState("");
 
     // User Data To Store
     const [displayName, setDisplayName] = useState(
@@ -201,14 +202,14 @@ const Profile = () => {
     return (
         <>
             <Navbar />
-            <div className="pt-16 px-16 pb-5 flex flex-col items-center">
+            <div className="md:pt-16 md:px-16 pb-5 p-8 flex flex-col items-center">
                 {/* Image Container */}
                 <div className="h-[200px] w-full rounded-lg bg-gradient-custom grid place-content-center relative">
                     <a
                         href={`https://linkcrate.vercel.app/${displayName}`}
-                        className="text-white text-2xl"
+                        className="text-white md:text-2xl text-lg"
                     >
-                        https://linkcrate.vercel.app/{displayName}
+                        <p>https://linkcrate.vercel.app/{displayName}</p>
                     </a>
                     <img
                         className="bg-gray-500 h-[150px] w-[150px] border-4 border-slate-100 rounded-full absolute left-1/2 -translate-x-1/2 top-full -translate-y-1/2"
@@ -255,7 +256,7 @@ const Profile = () => {
                 </span>
 
                 {/* Profile Information */}
-                <div className="mt-6 w-[70%] m-auto py-4 flex flex-col space-y-8">
+                <div className="mt-6 w-[100%] md:w-[70%] m-auto py-4 flex flex-col space-y-8">
                     <InputSection
                         label={"Linkcrate Name"}
                         placeholder={"Linkcrate Name"}
@@ -359,6 +360,16 @@ const Profile = () => {
                                         }));
                                     }}
                                     onKeyPress={(e) => {
+                                        if (
+                                            newLinkTitle.link === "" ||
+                                            newLinkTitle.title === ""
+                                        ) {
+                                            setError(
+                                                "Enter both Title and Link in order to add the link."
+                                            );
+                                            return;
+                                        }
+
                                         if (13 === e.keyCode) {
                                             setLinksAttached((prev) => [
                                                 ...prev,
@@ -373,7 +384,36 @@ const Profile = () => {
                                     }}
                                 />
                             </div>
+                            <p className="text-red-500 mt-2 text-base">
+                                {error}
+                            </p>
                         </div>
+                        <button
+                            onClick={() => {
+                                if (
+                                    newLinkTitle.link === "" ||
+                                    newLinkTitle.title === ""
+                                ) {
+                                    setError(
+                                        "Enter both Title and Link in order to add the link."
+                                    );
+                                    return;
+                                }
+
+                                setLinksAttached((prev) => [
+                                    ...prev,
+                                    newLinkTitle
+                                ]);
+
+                                setNewLinkTitle((prev) => ({
+                                    title: "",
+                                    link: ""
+                                }));
+                            }}
+                            className="md:hidden text-white w-full rounded-3xl py-2 bg-blue-500"
+                        >
+                            Add Link
+                        </button>
                     </div>
                 </div>
 

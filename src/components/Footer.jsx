@@ -39,11 +39,11 @@ const links = [
 
 const Footer = () => {
     return (
-        <div className="border-t-2 w-[90%] mx-auto py-4 flex items-center justify-between">
+        <div className="border-t-2 w-[90%] mx-auto py-4 flex flex-col space-y-4 md:flex-row items-center justify-between">
             <div>
                 <Logo labelStyle={"text-xl"} logoStyle={"h-6 w-6"} />
             </div>
-            <div className="flex space-x-4 items-center">
+            <div className="flex flex-col space-y-2 md:space-y-0 md:flex-row md:space-x-4 items-center">
                 {links.map((link, index) => (
                     <Link
                         key={index}

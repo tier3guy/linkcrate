@@ -9,14 +9,14 @@ const Features = () => {
         useAuthContext();
 
     return (
-        <div id="features" className=" w-[90%] m-auto">
-            <div className="bg-white rounded-3xl p-20 text-center shadow-sm">
+        <div id="features" className=" w-[90%] m-auto mt-20 md:mt-0">
+            <div className="bg-white rounded-3xl md:p-20 px-10 py-20 text-center shadow-sm">
                 <div className="md:h-full flex flex-col justify-center">
                     <p className="text-xl text-sky-800">Made it Easy</p>
                     <h1 className="md:leading-[75px] my-3 text-6xl font-bold text-slate-800">
                         Features designed for you
                     </h1>
-                    <p className="text-lg mt-5 text-gray-500 m-auto w-1/2">
+                    <p className="text-lg mt-5 text-gray-500 m-auto md:w-1/2">
                         Combine everthing in one link, online content, socials,
                         etc and share it with your friends.
                     </p>
@@ -51,7 +51,7 @@ const Features = () => {
                             as you wish
                         </span>
                     </h1>
-                    <p className="mt-5 text-gray-500 w-1/2">
+                    <p className="mt-5 text-gray-500 md:w-1/2">
                         Organize all the links according to your needs, make
                         your audience to find them easily. With just a few
                         steps.
@@ -62,7 +62,7 @@ const Features = () => {
                                 !createAccountModalVisibility
                             );
                         }}
-                        className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-3xl w-[14%] my-4 text-white"
+                        className="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-3xl md:w-[14%] my-4 text-white"
                     >
                         Sign up free
                     </button>

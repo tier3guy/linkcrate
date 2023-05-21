@@ -199,7 +199,7 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
     return (
         <ModalsWrapper visible={visible}>
             <div
-                className={`border-1 w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                className={`border-1 m-auto w-[90%] md:w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
                     visible
                         ? "scale-100 animate-zoomIn"
                         : "scale-0 animate-zoomOut"
@@ -221,7 +221,7 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
                     </p>
                 </div>
 
-                <div className="p-8">
+                <div className="md:p-8 p-4">
                     <div className="flex flex-col">
                         <div className="flex flex-col space-y-1">
                             <div className="mb-4">
@@ -376,7 +376,7 @@ export const LoginModal = ({ visible, setVisibility }) => {
     return (
         <ModalsWrapper visible={visible}>
             <div
-                className={`border-1 w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                className={`border-1 w-[90%] m-auto md:w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
                     visible
                         ? "scale-100 animate-zoomIn"
                         : "scale-0 animate-zoomOut"
@@ -541,7 +541,7 @@ export const ProfileDropDownModal = ({
         <div
             className={`${
                 visible ? "block" : "hidden"
-            } z-999999 absolute right-[2em] top-[4em] rounded-3xl bg-white w-[300px] shadow-md`}
+            } z-999999 absolute right-[5%] md:right-[2em] top-[4em] rounded-3xl bg-white w-[90%] md:w-[300px] shadow-md`}
         >
             {dropdownMenus.map((menu, index) => (
                 <div
@@ -589,7 +589,7 @@ export const DeleteAccountModal = ({ visible, setVisibility }) => {
     return (
         <ModalsWrapper visible={visible}>
             <div
-                className={`border-1 w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
+                className={`border-1 w-[90%] m-auto md:w-[500px] relative bg-white rounded-3xl opacity-100 shadow-md ${
                     visible
                         ? "scale-100 animate-zoomIn"
                         : "scale-0 animate-zoomOut"

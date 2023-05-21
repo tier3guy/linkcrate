@@ -58,16 +58,18 @@ const Navbar = () => {
     const [dropdownVisibility, setDropdownVisibility] = useState(false);
 
     return (
-        <nav className="z-[100] p-4 px-16 bg-white fixed top-0 w-screen border-y flex items-center justify-between">
+        <nav className="z-[100] p-4 px-8 md:px-16 bg-white fixed top-0 w-screen border-y flex items-center justify-between">
+            {/* Drop Down Menu */}
             <ProfileDropDownModal
                 visible={dropdownVisibility}
                 setVisibility={setDropdownVisibility}
                 setDeleteAccountModal={setDeleteAccountModalVisibility}
                 deleteAccountModal={deleteAccountModalVisibility}
             />
+
             <div className="flex space-x-10 items-center">
                 <Logo />
-                <div className="flex space-x-4 items-center">
+                <div className="space-x-4 items-center hidden md:flex">
                     {links.map((link, index) =>
                         link.id ? (
                             <a
