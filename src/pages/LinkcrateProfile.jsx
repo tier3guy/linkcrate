@@ -63,7 +63,7 @@ const LinkcrateProfile = () => {
                     <i className="text-gray-100 fa-solid fa-share-nodes"></i>
                 </button>
 
-                <div className="w-[90%] md:w-[50%] pt-20 md:py-10 m-auto min-h-screen flex flex-col items-center">
+                <div className="w-[90%] md:w-[50%] pt-20 pb-10 md:py-10 m-auto min-h-screen flex flex-col items-center">
                     <img
                         src={profile?.photoURL ? profile?.photoURL : ""}
                         alt="user"

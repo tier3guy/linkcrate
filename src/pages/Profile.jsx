@@ -42,7 +42,7 @@ const InputSection = ({
     return (
         <div>
             <div
-                className={`flex flex-col justify-between md:flex-row md:items-center ${style}`}
+                className={`flex flex-col justify-between md:flex-row ${style}`}
             >
                 <textarea
                     placeholder={labelPlaceholder}
