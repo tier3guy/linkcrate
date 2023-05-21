@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Pages
 import Error from "./Error";
+import LoadingPage from "./LoadingPage";
 
 // External Components
 import { useParams } from "react-router-dom";
@@ -42,12 +43,7 @@ const LinkcrateProfile = () => {
     }, []);
 
     if (notFound) return <Error />;
-    if (loading)
-        return (
-            <div className="grid place-content-center bg-slate-800 h-screen w-screen text-white">
-                Loading...
-            </div>
-        );
+    if (loading) return <LoadingPage />;
 
     return (
         <>

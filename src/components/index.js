@@ -6,6 +6,7 @@ import {
     ShareProfileModal
 } from "./Modals";
 
+export { default as Spinner } from "./Spinner";
 export { default as Navbar } from "./Navbar";
 export { default as Logo } from "./Logo";
 export { default as FeaturesCard } from "./FeaturesCard";

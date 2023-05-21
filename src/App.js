@@ -14,6 +14,9 @@ import {
 // Contexts
 import { useAuthContext } from "./contexts/AuthContext";
 
+// Pages
+import { LoadingPage } from "./pages";
+
 const App = () => {
     const {
         loginModalVisibilty,
@@ -21,8 +24,12 @@ const App = () => {
         createAccountModalVisibility,
         setCreateAccountModalVisibility,
         deleteAccountModalVisibility,
-        setDeleteAccountModalVisibility
+        setDeleteAccountModalVisibility,
+        loading
     } = useAuthContext();
+
+    if (loading) return <LoadingPage />;
+
     return (
         <div className="h-screen w-screen bg-slate-100 overflow-x-hidden scroll-smooth">
             <CreateAccountModal

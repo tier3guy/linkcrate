@@ -7,6 +7,9 @@ import { useAuthContext } from "../contexts/AuthContext";
 // Internal Imports
 import { useState } from "react";
 
+// Utils
+import { containsSpecialCharactersOrWhiteSpace } from "../utils";
+
 // External Imports
 import {
     auth,
@@ -64,6 +67,12 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
         if (loading) return;
         if (!email || !password || !linkcrateName)
             return setError("All the field are necessary in this case!");
+        if (containsSpecialCharactersOrWhiteSpace(linkcrateName)) {
+            setError(
+                "Linkcrate Name should not contain any white space or any special character."
+            );
+            return;
+        }
 
         const res = await checkIfNameAvailable();
         if (!res) {
@@ -118,6 +127,12 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
             );
             return;
         }
+        if (containsSpecialCharactersOrWhiteSpace(linkcrateName)) {
+            setError(
+                "Linkcrate Name should not contain any white space or any special character."
+            );
+            return;
+        }
         const res = await checkIfNameAvailable();
         if (!res) {
             setError(
@@ -162,6 +177,12 @@ export const CreateAccountModal = ({ visible, setVisibility }) => {
         if (!linkcrateName) {
             setError(
                 "Linkcrate Name should not be empty! You have to choose one domain before creating the account."
+            );
+            return;
+        }
+        if (containsSpecialCharactersOrWhiteSpace(linkcrateName)) {
+            setError(
+                "Linkcrate Name should not contain any white space or any special character."
             );
             return;
         }

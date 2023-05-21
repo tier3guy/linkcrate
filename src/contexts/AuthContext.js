@@ -2,9 +2,6 @@
 // Internal Imports
 import { useState, useEffect, createContext, useContext } from "react";
 
-// Pages
-import { LoadingPage } from "../pages";
-
 // Firebase Imports
 import { auth, retriveData } from "../firesbase";
 
@@ -34,15 +31,23 @@ export const AuthContextProvider = ({ children }) => {
     const [lname, setLname] = useState("");
 
     useEffect(() => {
-        setLoading(true);
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (!user) return;
             const prof = await retriveData();
             setProfile(prof);
             setUser(user);
         });
-        setLoading(false);
         return unsubscribe;
+    }, []);
+
+    useState(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1 * 1000);
+
+        return () => {
+            clearTimeout(timer);
+        };
     }, []);
 
     return (
@@ -76,7 +81,7 @@ export const AuthContextProvider = ({ children }) => {
                 setProfile
             }}
         >
-            {loading ? <LoadingPage /> : children}
+            {children}
         </AuthContext.Provider>
     );
 };

@@ -13,6 +13,9 @@ import { useState } from "react";
 // Contexts
 import { useAuthContext } from "../contexts/AuthContext";
 
+// Utils
+import { containsSpecialCharactersOrWhiteSpace } from "../utils";
+
 const Home = () => {
     const { linkcrateName, setLinkcrateName, setCreateAccountModalVisibility } =
         useAuthContext();
@@ -33,6 +36,12 @@ const Home = () => {
     const ClaimUsername = async () => {
         if (!linkcrateName) {
             setError("Please enter your name to claim it.");
+            return;
+        }
+        if (containsSpecialCharactersOrWhiteSpace(linkcrateName)) {
+            setError(
+                "Linkcrate Name should not contain any white space or any special character."
+            );
             return;
         }
         const res = await CheckUsername();
